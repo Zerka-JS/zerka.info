@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>zerka — Développeur</title>
+<title>zerka — Développeur & Audio</title>
 <style>
   :root{
     --bg:#050506;
@@ -130,6 +130,142 @@
   .skill h3{font-size:20px;font-weight:650;letter-spacing:-.01em;margin-bottom:10px;position:relative}
   .skill p{color:var(--muted);font-size:15px;line-height:1.55;position:relative}
 
+  /* ---------- AUDIO CARDS (NEW SECTIONS) ---------- */
+  .audio-card-container {
+    margin-top: 50px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.015);
+    padding: clamp(24px, 4vw, 40px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  .audio-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .badge-tag {
+    background: rgba(255, 31, 45, 0.12);
+    border: 1px solid rgba(255, 31, 45, 0.3);
+    color: var(--red);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  /* Equalizer visualizer */
+  .eq-container {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eq-bar {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(255,31,45,0.8), rgba(168,0,9,0.3));
+    border-radius: 3px 3px 0 0;
+    min-height: 4px;
+    transition: height 0.15s ease;
+  }
+  .eq-curve {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+  }
+  .mix-sliders {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .slider-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .fader-track {
+    width: 4px;
+    height: 80px;
+    background: var(--line);
+    border-radius: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fader-knob {
+    width: 20px;
+    height: 10px;
+    background: var(--ink);
+    border-radius: 3px;
+    position: absolute;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    border: 1px solid var(--red);
+  }
+  .slider-col span {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: .05em;
+  }
+
+  /* VMR Router Schema */
+  .router-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 20px;
+    position: relative;
+  }
+  @media(max-width:768px){ .router-grid { grid-template-columns: 1fr; } }
+  .router-box {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 22px;
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    transition: border-color .3s var(--ease);
+  }
+  .router-box:hover { border-color: var(--red); }
+  .router-box .icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255,31,45,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+  }
+  .router-box .title { font-weight: 600; font-size: 15px; }
+  .router-box .desc { font-size: 12px; color: var(--muted); }
+
+  .sub-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
   /* ---------- projects ---------- */
   .projects{display:grid;gap:18px;margin-top:56px}
   .proj{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:28px;padding:34px clamp(20px,3vw,40px);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.02);transition:background .5s var(--ease),border-color .5s var(--ease),transform .5s var(--ease)}
@@ -185,22 +321,23 @@
     <div class="navlinks">
       <a href="#about">Profil</a>
       <a href="#expertise">Expertise</a>
+      <a href="#audio">Audio &amp; DSP</a>
       <a href="#work">Projets</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
 
   <section class="hero">
-    <div class="kicker">Développeur · Bots Telegram</div>
+    <div class="kicker">Développeur · Bots Telegram &amp; Audio</div>
     <h1><span class="glyph">z</span><span class="glyph accent">e</span><span class="glyph">r</span><span class="glyph">k</span><span class="glyph accent">a</span></h1>
-    <p class="subtitle">Je conçois des <b>bots Telegram</b> et des outils d'automatisation en Python — du back-end aux interfaces, pensés pour être <b>rapides, fiables et propres</b>.</p>
+    <p class="subtitle">Je conçois des <b>bots Telegram</b>, des outils d'automatisation en Python et des <b>routage audio DSP</b> — du back-end aux interfaces, pensés pour être <b>rapides, fiables et propres</b>.</p>
     <div class="scrollcue"><div class="mouse"></div>défiler</div>
   </section>
 
   <section id="about">
     <div class="wrap">
       <div class="eyebrow reveal"><span></span>Profil</div>
-      <p class="lead reveal" data-d="1">Développeur autodidacte, orienté produit. <span class="soft">J'aime transformer une idée en un bot qui marche, du premier message à la mise en production.</span></p>
+      <p class="lead reveal" data-d="1">Développeur autodidacte, orienté produit. <span class="soft">J'aime transformer une idée en un bot ou une solution audio qui marche, du premier test à la mise en production.</span></p>
     </div>
   </section>
 
@@ -252,6 +389,127 @@
     </div>
   </section>
 
+  <section id="audio">
+    <div class="wrap">
+      <div class="eyebrow reveal"><span></span>Studio · Le Son</div>
+      <h2 class="lead reveal" data-d="1">Je passe des heures à <span class="soft">sculpter le son.</span></h2>
+      <p class="subtitle reveal" style="opacity:1; transform:none; max-width: 680px;" data-d="2">
+        Le traitement du micro sur Discord, c'est mon terrain de jeu. Je maîtrise la suite <b>FabFilter</b> — surtout l'EQ Pro-Q 4 — et je fais tourner ma chaîne Rode NT1 → Voicemeeter (insert ASIO) → Reaper en VST.
+      </p>
+
+      <div class="audio-card-container reveal" data-d="3">
+        <div class="audio-card-header">
+          <span>Pro-Q · Equalizer</span>
+          <span class="badge-tag">REAPER · VST</span>
+        </div>
+
+        <div class="eq-container" id="eqBars">
+          <svg class="eq-curve" viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path d="M0,80 Q 120,120 200,50 T 380,90 T 500,70" fill="none" stroke="#ff1f2d" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--red-glow));"/>
+            <circle cx="120" cy="95" r="5" fill="#ff5560"/>
+            <circle cx="200" cy="50" r="5" fill="#ff1f2d"/>
+            <circle cx="290" cy="65" r="5" fill="#ff5560"/>
+            <circle cx="380" cy="90" r="5" fill="#ff1f2d"/>
+            <circle cx="430" cy="80" r="5" fill="#ff5560"/>
+          </svg>
+        </div>
+
+        <div class="mix-sliders">
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:25%"></div></div>
+            <span>MIC</span>
+          </div>
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:40%"></div></div>
+            <span>VOX</span>
+          </div>
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:15%"></div></div>
+            <span>MUSIC</span>
+          </div>
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:60%"></div></div>
+            <span>FX</span>
+          </div>
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:30%"></div></div>
+            <span>BUS</span>
+          </div>
+          <div class="slider-col">
+            <div class="fader-track"><div class="fader-knob" style="top:20%"></div></div>
+            <span>MASTER</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 100px;">
+        <div class="eyebrow reveal"><span></span>Mon projet du moment</div>
+        <h2 class="lead reveal" data-d="1">J'essaie de coder <span class="soft">mon propre Voicemeeter.</span></h2>
+        <p class="subtitle reveal" style="opacity:1; transform:none; max-width:680px;" data-d="2">
+          J'utilise Voicemeeter tous les jours pour router mon audio. Alors j'ai eu envie de comprendre ce qu'il y a dessous — en tentant d'en construire une version à moi : périphériques audio virtuels, routage entre applications, inserts VST, et la latence la plus basse possible.
+        </p>
+
+        <div class="audio-card-container reveal" data-d="3">
+          <div class="audio-card-header">
+            <span style="display:flex; align-items:center; gap:8px;">
+              <span style="width:7px; height:7px; background:var(--red); border-radius:50%; display:inline-block;"></span>
+              VMR · Virtual Audio Router
+            </span>
+            <span class="badge-tag">WIP · perso</span>
+          </div>
+
+          <div class="router-grid">
+            <div>
+              <div class="router-box">
+                <div class="icon-box">🎙️</div>
+                <div><div class="title">Micro</div><div class="desc">Rode NT1</div></div>
+              </div>
+              <div class="router-box">
+                <div class="icon-box">💬</div>
+                <div><div class="title">Discord</div><div class="desc">Voix entrante</div></div>
+              </div>
+              <div class="router-box">
+                <div class="icon-box">🎵</div>
+                <div><div class="title">Musique</div><div class="desc">Système</div></div>
+              </div>
+              <div class="router-box">
+                <div class="icon-box">💻</div>
+                <div><div class="title">Système</div><div class="desc">Applications</div></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="router-box">
+                <div class="icon-box">🎧</div>
+                <div><div class="title">A1 · Casque</div><div class="desc">Sortie physique</div></div>
+              </div>
+              <div class="router-box">
+                <div class="icon-box">🗣️</div>
+                <div><div class="title">B1 · Discord</div><div class="desc">Sortie virtuelle</div></div>
+              </div>
+              <div class="router-box">
+                <div class="icon-box">🎛️</div>
+                <div><div class="title">VST · Reaper</div><div class="desc">Insert d'effets</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tags">
+            <span class="tag">Audio virtuel</span>
+            <span class="tag">Routage</span>
+            <span class="tag">Inserts VST</span>
+            <span class="tag">Faible latence</span>
+            <span class="tag">WIP</span>
+          </div>
+        </div>
+
+        <p class="handle reveal" style="text-align:center; margin-top:30px;" data-d="4">
+          Rien de fini, et clairement au-dessus de mon niveau du moment. Mais c'est exactement comme ça que j'aime apprendre : <b>démonter, comprendre, réessayer.</b>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section id="work">
     <div class="wrap">
       <div class="eyebrow reveal"><span></span>Projets</div>
@@ -284,10 +542,10 @@
 
   <section id="contact" class="cta">
     <h2 class="reveal">On construit <span class="r">quelque chose</span> ?</h2>
-    <a class="btn reveal" data-d="1" href="https://t.me/zerkadev" target="_blank" rel="noopener">
+    <a class="btn reveal" data-d="1" href="https://t.me/zerka" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M22 3 2 11l7 3 3 7 10-18Z"/></svg>Me contacter sur Telegram
     </a>
-    <p class="handle reveal" data-d="2">ou en direct : <b>@zerkadev</b></p>
+    <p class="handle reveal" data-d="2">ou en direct : <b>@zerka</b></p>
   </section>
 
   <footer>© <span id="yr"></span> zerka — Développeur. Tous droits réservés.</footer>
@@ -328,6 +586,24 @@
       s.style.setProperty('--sy', (e.clientY-r.top)+'px');
     });
   });
+
+  /* ---------- Dynamic EQ Spectrogram Animation ---------- */
+  const eqContainer = document.getElementById('eqBars');
+  if(eqContainer) {
+    const barsCount = 38;
+    for (let i = 0; i < barsCount; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'eq-bar';
+      eqContainer.appendChild(bar);
+    }
+    const bars = eqContainer.querySelectorAll('.eq-bar');
+    setInterval(() => {
+      bars.forEach(bar => {
+        const height = Math.floor(Math.random() * 80) + 10;
+        bar.style.height = height + '%';
+      });
+    }, 150);
+  }
 </script>
 </body>
 </html>
