@@ -221,7 +221,7 @@
     letter-spacing: .05em;
   }
 
-  /* ---------- VMR COMPONENT PERFECTED ---------- */
+  /* ---------- VMR COMPONENT ---------- */
   .vmr-card {
     position: relative;
     margin-top: 40px;
@@ -262,7 +262,6 @@
     border-radius: 100px;
   }
 
-  /* Grid layout with exactly aligned center SVG */
   .vmr-body {
     position: relative;
     display: grid;
@@ -293,10 +292,6 @@
     gap: 14px;
     height: 68px;
     transition: all .3s var(--ease);
-  }
-  .vmr-box.active {
-    border-color: rgba(255, 31, 45, 0.85);
-    box-shadow: 0 0 24px rgba(255, 31, 45, 0.22);
   }
   .vmr-icon {
     width: 36px;
@@ -329,7 +324,7 @@
     margin-top: 3px;
   }
 
-  /* SVG exact anchoring canvas */
+  /* SVG Routing Canvas */
   .vmr-connections-svg {
     width: 100%;
     height: 100%;
@@ -544,7 +539,7 @@
         </div>
       </div>
 
-      <!-- VMR PROJECT SECTION WITH PERFECT ANCHORS AND RECTIFIED COLORS -->
+      <!-- VMR PROJECT SECTION -->
       <div style="margin-top: 100px;">
         <div class="eyebrow reveal"><span></span>Mon projet du moment</div>
         <h2 class="lead reveal" data-d="1">J'essaie de coder <span class="soft">mon propre Voicemeeter.</span></h2>
@@ -605,7 +600,7 @@
               </div>
             </div>
 
-            <!-- SVG Routing Connections Perfectly Anchored to Left Edge (0) and Right Edge (300) -->
+            <!-- SVG Routing Connections -->
             <svg class="vmr-connections-svg" viewBox="0 0 300 308" preserveAspectRatio="none">
               <!-- Node 1 (L1: y=34) -> Node 3 (R3: y=274) -->
               <path class="vmr-link" d="M 0,34 C 150,34 150,274 300,274" />
@@ -629,9 +624,8 @@
                 </div>
               </div>
 
-              <div class="vmr-box active">
+              <div class="vmr-box">
                 <div class="vmr-icon">
-                  <!-- Grey icon path inside active box as in target design -->
                   <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/></svg>
                 </div>
                 <div class="vmr-info">
