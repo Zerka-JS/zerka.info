@@ -437,7 +437,7 @@
 
         <div class="eq-container" id="eqBars">
           <svg class="eq-curve" viewBox="0 0 500 150" preserveAspectRatio="none">
-            <path id="eqPath" d="M0,80 Q 120,95 200,50 T 380,90 T 500,70" fill="none" stroke="#ff1f2d" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--red-glow));"/>
+            <path id="eqPath" d="M 0,80 C 60,80 80,95 120,95 C 160,95 175,50 200,50 C 235,50 260,65 290,65 C 330,65 350,90 380,90 C 405,90 415,80 430,80 C 460,80 480,75 500,75" fill="none" stroke="#ff1f2d" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--red-glow));"/>
             <circle id="pt1" cx="120" cy="95" r="5" fill="#ff5560"/>
             <circle id="pt2" cx="200" cy="50" r="5" fill="#ff1f2d"/>
             <circle id="pt3" cx="290" cy="65" r="5" fill="#ff5560"/>
@@ -630,7 +630,7 @@
     });
   });
 
-  /* ---------- Dynamic EQ Spectrogram & Connected Points Animation ---------- */
+  /* ---------- Dynamic EQ Spectrogram & Perfectly Anchored Nodes ---------- */
   const eqContainer = document.getElementById('eqBars');
   if(eqContainer) {
     const barsCount = 38;
@@ -649,6 +649,9 @@
     const pt4 = document.getElementById('pt4');
     const pt5 = document.getElementById('pt5');
 
+    // Anchored X coordinates for nodes
+    const x1 = 120, x2 = 200, x3 = 290, x4 = 380, x5 = 430;
+
     let t = 0;
     setInterval(() => {
       t += 0.08;
@@ -658,7 +661,7 @@
         bar.style.height = height + '%';
       });
 
-      // Animate Points along EQ Curve
+      // Synchronized Y positions for Nodes and Bezier Curve
       const y1 = 95 + Math.sin(t) * 8;
       const y2 = 50 + Math.cos(t * 1.2) * 12;
       const y3 = 65 + Math.sin(t * 1.5) * 6;
@@ -671,8 +674,10 @@
       pt4.setAttribute('cy', y4);
       pt5.setAttribute('cy', y5);
 
-      // Re-draw smooth SVG path passing through points
-      eqPath.setAttribute('d', `M 0,80 Q 120,${y1} 200,${y2} T 380,${y4} T 500,${y5}`);
+      // Path exact math to match node positions exactly
+      eqPath.setAttribute('d', 
+        `M 0,80 C 60,80 80,${y1} ${x1},${y1} C 160,${y1} 175,${y2} ${x2},${y2} C 235,${y2} 260,${y3} ${x3},${y3} C 330,${y3} 350,${y4} ${x4},${y4} C 405,${y4} 415,${y5} ${x5},${y5} C 460,${y5} 480,75 500,75`
+      );
     }, 120);
   }
 </script>
