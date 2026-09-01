@@ -221,7 +221,7 @@
     letter-spacing: .05em;
   }
 
-  /* ---------- EXACT VMR SCHEMA MATCHING THE SCREENSHOT ---------- */
+  /* ---------- VMR COMPONENT PERFECTED ---------- */
   .vmr-card {
     position: relative;
     margin-top: 40px;
@@ -262,12 +262,13 @@
     border-radius: 100px;
   }
 
+  /* Grid layout with exactly aligned center SVG */
   .vmr-body {
     position: relative;
     display: grid;
     grid-template-columns: 280px 1fr 280px;
     gap: 0;
-    align-items: center;
+    align-items: stretch;
   }
   @media(max-width: 860px) {
     .vmr-body { grid-template-columns: 1fr; gap: 20px; }
@@ -277,6 +278,7 @@
   .vmr-col {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 12px;
     z-index: 2;
   }
@@ -289,11 +291,12 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    height: 68px;
     transition: all .3s var(--ease);
   }
   .vmr-box.active {
-    border-color: rgba(255, 31, 45, 0.8);
-    box-shadow: 0 0 20px rgba(255, 31, 45, 0.15);
+    border-color: rgba(255, 31, 45, 0.85);
+    box-shadow: 0 0 24px rgba(255, 31, 45, 0.22);
   }
   .vmr-icon {
     width: 36px;
@@ -314,7 +317,6 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  .vmr-box.active .vmr-icon svg { stroke: #ff3b47; }
   .vmr-info .t {
     font-size: 14.5px;
     font-weight: 650;
@@ -327,18 +329,17 @@
     margin-top: 3px;
   }
 
-  /* SVG Connections overlay */
+  /* SVG exact anchoring canvas */
   .vmr-connections-svg {
     width: 100%;
     height: 100%;
-    min-height: 280px;
     overflow: visible;
     z-index: 1;
   }
   .vmr-link {
     fill: none;
     stroke: #ff1f2d;
-    stroke-width: 2.8;
+    stroke-width: 2.5;
     stroke-linecap: round;
     stroke-dasharray: 8 8;
     opacity: 0.85;
@@ -489,7 +490,7 @@
     </div>
   </section>
 
-  <!-- SECTION AUDIO & EXACT VMR MATCHING THE SCREENSHOT -->
+  <!-- SECTION AUDIO -->
   <section id="audio">
     <div class="wrap">
       <div class="eyebrow reveal"><span></span>Studio · Le Son</div>
@@ -543,7 +544,7 @@
         </div>
       </div>
 
-      <!-- EXACT REPRODUCTION OF SCREENSHOT SECTION -->
+      <!-- VMR PROJECT SECTION WITH PERFECT ANCHORS AND RECTIFIED COLORS -->
       <div style="margin-top: 100px;">
         <div class="eyebrow reveal"><span></span>Mon projet du moment</div>
         <h2 class="lead reveal" data-d="1">J'essaie de coder <span class="soft">mon propre Voicemeeter.</span></h2>
@@ -551,7 +552,6 @@
           J'utilise Voicemeeter tous les jours pour router mon audio. Alors j'ai eu envie de comprendre ce qu'il y a dessous — en tentant d'en construire une version à moi : périphériques audio virtuels, routage entre applications, inserts VST, et la latence la plus basse possible.
         </p>
 
-        <!-- SCREENSHOT CARD COMPONENT -->
         <div class="vmr-card reveal" data-d="3">
           <div class="vmr-header">
             <div class="vmr-title">
@@ -605,16 +605,16 @@
               </div>
             </div>
 
-            <!-- SVG Routing Connections -->
-            <svg class="vmr-connections-svg" viewBox="0 0 300 240" preserveAspectRatio="none">
-              <!-- Node 1 (Top Left) -> Node 3 (Bottom Right) -->
-              <path class="vmr-link" d="M 0,30 C 150,30 150,210 300,210" />
-              <!-- Node 2 -> Node 2 Active -->
-              <path class="vmr-link" d="M 0,90 C 150,90 150,90 300,90" />
-              <!-- Node 3 -> Node 1 -->
-              <path class="vmr-link" d="M 0,150 C 150,150 150,30 300,30" />
-              <!-- Node 4 -> Node 2 Active -->
-              <path class="vmr-link" d="M 0,210 C 150,210 150,90 300,90" />
+            <!-- SVG Routing Connections Perfectly Anchored to Left Edge (0) and Right Edge (300) -->
+            <svg class="vmr-connections-svg" viewBox="0 0 300 308" preserveAspectRatio="none">
+              <!-- Node 1 (L1: y=34) -> Node 3 (R3: y=274) -->
+              <path class="vmr-link" d="M 0,34 C 150,34 150,274 300,274" />
+              <!-- Node 2 (L2: y=114) -> Node 2 (R2: y=154) -->
+              <path class="vmr-link" d="M 0,114 C 150,114 150,154 300,154" />
+              <!-- Node 3 (L3: y=194) -> Node 1 (R1: y=34) -->
+              <path class="vmr-link" d="M 0,194 C 150,194 150,34 300,34" />
+              <!-- Node 4 (L4: y=274) -> Node 2 (R2: y=154) -->
+              <path class="vmr-link" d="M 0,274 C 150,274 150,154 300,154" />
             </svg>
 
             <!-- Right Column -->
@@ -631,6 +631,7 @@
 
               <div class="vmr-box active">
                 <div class="vmr-icon">
+                  <!-- Grey icon path inside active box as in target design -->
                   <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/></svg>
                 </div>
                 <div class="vmr-info">
@@ -651,7 +652,7 @@
             </div>
           </div>
 
-          <!-- Bottom Pill Tags -->
+          <!-- Bottom Tags -->
           <div class="vmr-pills">
             <span class="vmr-pill">Audio virtuel</span>
             <span class="vmr-pill">Routage</span>
