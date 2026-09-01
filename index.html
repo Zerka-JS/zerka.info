@@ -130,7 +130,7 @@
   .skill h3{font-size:20px;font-weight:650;letter-spacing:-.01em;margin-bottom:10px;position:relative}
   .skill p{color:var(--muted);font-size:15px;line-height:1.55;position:relative}
 
-  /* ---------- AUDIO CARDS (NEW SECTIONS) ---------- */
+  /* ---------- AUDIO CARDS ---------- */
   .audio-card-container {
     margin-top: 50px;
     border: 1px solid var(--line);
@@ -159,7 +159,7 @@
     font-size: 11px;
     font-weight: 600;
   }
-  
+
   /* Equalizer visualizer */
   .eq-container {
     position: relative;
@@ -173,10 +173,10 @@
   }
   .eq-bar {
     flex: 1;
-    background: linear-gradient(180deg, rgba(255,31,45,0.8), rgba(168,0,9,0.3));
+    background: linear-gradient(180deg, rgba(255,31,45,0.7), rgba(168,0,9,0.15));
     border-radius: 3px 3px 0 0;
     min-height: 4px;
-    transition: height 0.15s ease;
+    transition: height 0.12s ease;
   }
   .eq-curve {
     position: absolute;
@@ -225,26 +225,33 @@
   }
 
   /* VMR Router Schema */
+  .router-wrapper {
+    position: relative;
+    margin-top: 20px;
+  }
   .router-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 20px;
+    gap: clamp(60px, 15vw, 200px);
     position: relative;
+    z-index: 2;
   }
-  @media(max-width:768px){ .router-grid { grid-template-columns: 1fr; } }
+  @media(max-width:768px){ 
+    .router-grid { grid-template-columns: 1fr; gap: 30px; } 
+    .router-svg-connections { display: none; }
+  }
   .router-box {
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 18px 22px;
-    background: rgba(255,255,255,0.02);
+    padding: 16px 20px;
+    background: rgba(10, 10, 12, 0.85);
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 14px;
-    transition: border-color .3s var(--ease);
+    transition: border-color .3s var(--ease), transform .3s var(--ease);
   }
-  .router-box:hover { border-color: var(--red); }
+  .router-box:hover { border-color: var(--red); transform: translateX(3px); }
   .router-box .icon-box {
     width: 36px;
     height: 36px;
@@ -254,9 +261,31 @@
     align-items: center;
     justify-content: center;
     color: var(--red);
+    font-size: 18px;
   }
   .router-box .title { font-weight: 600; font-size: 15px; }
   .router-box .desc { font-size: 12px; color: var(--muted); }
+
+  /* Animated connection lines */
+  .router-svg-connections {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .router-line {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+    opacity: 0.65;
+    animation: flowLines 1.5s linear infinite;
+  }
+  @keyframes flowLines {
+    to { stroke-dashoffset: -24; }
+  }
 
   .sub-tags {
     display: flex;
@@ -309,6 +338,7 @@
     .flight .trail{stroke-dashoffset:0!important}
     .flight .node{opacity:.9!important}
     .ic-svg [pathLength]{stroke-dashoffset:0!important}
+    .router-line{animation:none!important}
   }
 </style>
 </head>
@@ -389,6 +419,7 @@
     </div>
   </section>
 
+  <!-- SECTION AUDIO & VMR INSPIRED BY SCREENSHOTS -->
   <section id="audio">
     <div class="wrap">
       <div class="eyebrow reveal"><span></span>Studio · Le Son</div>
@@ -397,6 +428,7 @@
         Le traitement du micro sur Discord, c'est mon terrain de jeu. Je maîtrise la suite <b>FabFilter</b> — surtout l'EQ Pro-Q 4 — et je fais tourner ma chaîne Rode NT1 → Voicemeeter (insert ASIO) → Reaper en VST.
       </p>
 
+      <!-- CARD 1: Dynamic Pro-Q Equalizer Display -->
       <div class="audio-card-container reveal" data-d="3">
         <div class="audio-card-header">
           <span>Pro-Q · Equalizer</span>
@@ -405,12 +437,12 @@
 
         <div class="eq-container" id="eqBars">
           <svg class="eq-curve" viewBox="0 0 500 150" preserveAspectRatio="none">
-            <path d="M0,80 Q 120,120 200,50 T 380,90 T 500,70" fill="none" stroke="#ff1f2d" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--red-glow));"/>
-            <circle cx="120" cy="95" r="5" fill="#ff5560"/>
-            <circle cx="200" cy="50" r="5" fill="#ff1f2d"/>
-            <circle cx="290" cy="65" r="5" fill="#ff5560"/>
-            <circle cx="380" cy="90" r="5" fill="#ff1f2d"/>
-            <circle cx="430" cy="80" r="5" fill="#ff5560"/>
+            <path id="eqPath" d="M0,80 Q 120,95 200,50 T 380,90 T 500,70" fill="none" stroke="#ff1f2d" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--red-glow));"/>
+            <circle id="pt1" cx="120" cy="95" r="5" fill="#ff5560"/>
+            <circle id="pt2" cx="200" cy="50" r="5" fill="#ff1f2d"/>
+            <circle id="pt3" cx="290" cy="65" r="5" fill="#ff5560"/>
+            <circle id="pt4" cx="380" cy="90" r="5" fill="#ff1f2d"/>
+            <circle id="pt5" cx="430" cy="80" r="5" fill="#ff5560"/>
           </svg>
         </div>
 
@@ -442,6 +474,7 @@
         </div>
       </div>
 
+      <!-- CARD 2: Custom Voicemeeter Router Project -->
       <div style="margin-top: 100px;">
         <div class="eyebrow reveal"><span></span>Mon projet du moment</div>
         <h2 class="lead reveal" data-d="1">J'essaie de coder <span class="soft">mon propre Voicemeeter.</span></h2>
@@ -458,38 +491,48 @@
             <span class="badge-tag">WIP · perso</span>
           </div>
 
-          <div class="router-grid">
-            <div>
-              <div class="router-box">
-                <div class="icon-box">🎙️</div>
-                <div><div class="title">Micro</div><div class="desc">Rode NT1</div></div>
-              </div>
-              <div class="router-box">
-                <div class="icon-box">💬</div>
-                <div><div class="title">Discord</div><div class="desc">Voix entrante</div></div>
-              </div>
-              <div class="router-box">
-                <div class="icon-box">🎵</div>
-                <div><div class="title">Musique</div><div class="desc">Système</div></div>
-              </div>
-              <div class="router-box">
-                <div class="icon-box">💻</div>
-                <div><div class="title">Système</div><div class="desc">Applications</div></div>
-              </div>
-            </div>
+          <div class="router-wrapper">
+            <!-- Animated Route SVGs -->
+            <svg class="router-svg-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path class="router-line" d="M 30,15 C 50,15 50,85 70,85" />
+              <path class="router-line" d="M 30,38 C 50,38 50,50 70,50" />
+              <path class="router-line" d="M 30,62 C 50,62 50,15 70,15" />
+              <path class="router-line" d="M 30,85 C 50,85 50,50 70,50" />
+            </svg>
 
-            <div>
-              <div class="router-box">
-                <div class="icon-box">🎧</div>
-                <div><div class="title">A1 · Casque</div><div class="desc">Sortie physique</div></div>
+            <div class="router-grid">
+              <div>
+                <div class="router-box">
+                  <div class="icon-box">🎙️</div>
+                  <div><div class="title">Micro</div><div class="desc">Rode NT1</div></div>
+                </div>
+                <div class="router-box">
+                  <div class="icon-box">💬</div>
+                  <div><div class="title">Discord</div><div class="desc">Voix entrante</div></div>
+                </div>
+                <div class="router-box">
+                  <div class="icon-box">🎵</div>
+                  <div><div class="title">Musique</div><div class="desc">Système</div></div>
+                </div>
+                <div class="router-box">
+                  <div class="icon-box">💻</div>
+                  <div><div class="title">Système</div><div class="desc">Applications</div></div>
+                </div>
               </div>
-              <div class="router-box">
-                <div class="icon-box">🗣️</div>
-                <div><div class="title">B1 · Discord</div><div class="desc">Sortie virtuelle</div></div>
-              </div>
-              <div class="router-box">
-                <div class="icon-box">🎛️</div>
-                <div><div class="title">VST · Reaper</div><div class="desc">Insert d'effets</div></div>
+
+              <div>
+                <div class="router-box">
+                  <div class="icon-box">🎧</div>
+                  <div><div class="title">A1 · Casque</div><div class="desc">Sortie physique</div></div>
+                </div>
+                <div class="router-box">
+                  <div class="icon-box">🗣️</div>
+                  <div><div class="title">B1 · Discord</div><div class="desc">Sortie virtuelle</div></div>
+                </div>
+                <div class="router-box">
+                  <div class="icon-box">🎛️</div>
+                  <div><div class="title">VST · Reaper</div><div class="desc">Insert d'effets</div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -587,7 +630,7 @@
     });
   });
 
-  /* ---------- Dynamic EQ Spectrogram Animation ---------- */
+  /* ---------- Dynamic EQ Spectrogram & Connected Points Animation ---------- */
   const eqContainer = document.getElementById('eqBars');
   if(eqContainer) {
     const barsCount = 38;
@@ -597,12 +640,40 @@
       eqContainer.appendChild(bar);
     }
     const bars = eqContainer.querySelectorAll('.eq-bar');
+    
+    // Nodes / Points on EQ curve
+    const eqPath = document.getElementById('eqPath');
+    const pt1 = document.getElementById('pt1');
+    const pt2 = document.getElementById('pt2');
+    const pt3 = document.getElementById('pt3');
+    const pt4 = document.getElementById('pt4');
+    const pt5 = document.getElementById('pt5');
+
+    let t = 0;
     setInterval(() => {
+      t += 0.08;
+      // Animate Equalizer Bars
       bars.forEach(bar => {
-        const height = Math.floor(Math.random() * 80) + 10;
+        const height = Math.floor(Math.random() * 75) + 12;
         bar.style.height = height + '%';
       });
-    }, 150);
+
+      // Animate Points along EQ Curve
+      const y1 = 95 + Math.sin(t) * 8;
+      const y2 = 50 + Math.cos(t * 1.2) * 12;
+      const y3 = 65 + Math.sin(t * 1.5) * 6;
+      const y4 = 90 + Math.cos(t * 0.9) * 10;
+      const y5 = 80 + Math.sin(t * 1.1) * 7;
+
+      pt1.setAttribute('cy', y1);
+      pt2.setAttribute('cy', y2);
+      pt3.setAttribute('cy', y3);
+      pt4.setAttribute('cy', y4);
+      pt5.setAttribute('cy', y5);
+
+      // Re-draw smooth SVG path passing through points
+      eqPath.setAttribute('d', `M 0,80 Q 120,${y1} 200,${y2} T 380,${y4} T 500,${y5}`);
+    }, 120);
   }
 </script>
 </body>
