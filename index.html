@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rnr.t — Portfolio</title>
-    <!-- Importation de la police Caveat -->
+    
+    <!-- AJOUT DU FAVICON (Logo Python) -->
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -16,8 +19,9 @@
             --accent: #8b5cf6; 
             --accent-soft: #f5f3ff;
             --card-bg: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --discord-blurple: #5865F2;
         }
 
         .dark-theme {
@@ -30,7 +34,6 @@
             --card-bg: #252525;
         }
 
-        /* Classe pour activer la police Caveat */
         .font-caveat {
             --main-font: 'Caveat', cursive;
         }
@@ -44,10 +47,10 @@
             line-height: 1.6;
             display: flex;
             min-height: 100vh;
-            transition: background-color 0.3s ease, font-family 0.3s ease;
+            transition: background-color 0.4s ease, font-family 0.3s ease;
         }
 
-        /* --- SIDEBAR GAUCHE FIXE --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             position: fixed;
             left: 0;
@@ -91,7 +94,7 @@
             font-weight: 400;
         }
 
-        /* --- CONTENU À DROITE --- */
+        /* --- MAIN CONTENT --- */
         .main-content {
             margin-left: 350px;
             flex: 1;
@@ -155,7 +158,12 @@
             margin-bottom: 80px;
         }
 
-        section { animation: reveal 1.5s ease-out; margin-bottom: 80px; }
+        section { 
+            animation: reveal 1.5s ease-out; 
+            margin-bottom: 80px; 
+            transition: var(--transition);
+        }
+        
         h2 {
             font-size: 0.85rem;
             text-transform: uppercase;
@@ -198,6 +206,161 @@
         .item-info { flex-grow: 1; }
         .item-title { display: block; font-weight: 600; font-size: 1.1rem; }
         .item-meta { font-size: 0.85rem; color: var(--gray); }
+
+        /* --- DISCORD PROFILE CARD --- */
+        .discord-card-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .discord-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 24px;
+            border: 1px solid var(--light-gray);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+        .discord-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--discord-blurple);
+        }
+        .discord-banner {
+            height: 80px;
+            background: linear-gradient(135deg, var(--discord-blurple) 0%, #4752C4 100%);
+            width: 100%;
+        }
+        .discord-profile-body {
+            padding: 0 25px 30px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .discord-pfp-container {
+            margin-top: -40px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .discord-pfp {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 5px solid var(--card-bg);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .status-indicator {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 16px;
+            height: 16px;
+            background: #23a55a;
+            border: 3px solid var(--card-bg);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(35, 165, 90, 0.5);
+        }
+        .discord-user-info {
+            margin-bottom: 25px;
+        }
+        .discord-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .discord-handle {
+            font-size: 0.95rem;
+            color: var(--gray);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .discord-about-mini {
+            background: var(--accent-soft);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            border: 1px solid var(--light-gray);
+            font-style: italic;
+        }
+        .discord-action-btn {
+            text-decoration: none;
+            background: var(--discord-blurple);
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .discord-action-btn:hover {
+            background: #4752C4;
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3);
+        }
+
+        /* --- OTHERS ACTIVITIES SECTION WITH BLUR --- */
+        .activities-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .activities-text {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        .activities-text strong {
+            color: var(--text);
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .activities-slider {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+        .image-track {
+            display: flex;
+            width: calc(250px * 10);
+            animation: scroll 30s linear infinite;
+        }
+        .activity-img {
+            width: 250px;
+            height: 180px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin: 0 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 2px solid var(--light-gray);
+        }
+        .activity-img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-280px * 5)); }
+        }
 
         .about-box {
             background: var(--card-bg);
@@ -348,6 +511,7 @@
             }
             .main-content { margin-left: 0; padding: 40px 20px; }
             .main-grid { grid-template-columns: 1fr; }
+            .activities-container { grid-template-columns: 1fr; text-align: center; }
         }
     </style>
 </head>
@@ -373,6 +537,8 @@
         <nav>
             <a href="#projets" data-key="nav-projets">Projets</a>
             <a href="#experience" data-key="nav-exp">Expérience</a>
+            <a href="#discord" data-key="nav-discord">Discord</a>
+            <a href="#others" data-key="nav-others">Activités</a>
             <a href="#about" data-key="nav-about">À propos</a>
             <a href="#contact" data-key="nav-contact">Contact</a>
         </nav>
@@ -429,6 +595,57 @@
                 </section>
             </div>
         </div>
+
+        <!-- SECTION DISCORD -->
+        <section id="discord" style="display: flex; flex-direction: column; align-items: center;">
+            <h2 data-key="title-discord" style="width: 100%; max-width: 380px;">Discord Profile</h2>
+            <div class="discord-card-wrapper">
+                <div class="discord-card">
+                    <div class="discord-banner"></div>
+                    <div class="discord-profile-body">
+                        <div class="discord-pfp-container">
+                            <img src="https://i.pinimg.com/736x/c8/79/f7/c879f767591183a76ae8500a390a2d51.jpg" alt="Avatar" class="discord-pfp">
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="discord-user-info">
+                            <span class="discord-name">Rnr.t</span>
+                            <span class="discord-handle">@rnr.t76</span>
+                        </div>
+                        <div class="discord-about-mini">
+                            "Passionné par le design minimaliste et le code."
+                        </div>
+                        <a href="https://discord.gg/1172884591401508875" target="_blank" class="discord-action-btn">
+                            <i class="fa-brands fa-discord"></i> Ajouter sur Discord
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION : AUTRES ACTIVITÉS -->
+        <section id="others">
+            <h2 data-key="title-others">Autres Activités</h2>
+            <div class="activities-container">
+                <div class="activities-text">
+                    <strong data-key="others-title">Plus que du code...</strong>
+                    <p data-key="others-text">
+                        En dehors des écrans et des lignes de code, je m'épanouis dans la création graphique, le sport et l'exploration de nouvelles technologies. Je crois que la curiosité est la clé de l'apprentissage, c'est pourquoi je passe mon temps libre à expérimenter des choses variées pour nourrir ma créativité.
+                    </p>
+                </div>
+                <div class="activities-slider">
+                    <div class="image-track">
+                        <img src="https://imgs.search.brave.com/QcTEVj5nEoHpB4UaVIhyC4m-rKaKNlMIh_0FX9CGeDc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMucHJpc21pYy5p/by9mZnQtcmctY29t/bXVuLW5ld3MvWnoz/WnZLOGpRQXJUMUVp/Wl9SYWZhZWxOYWRh/bC1Db3VwZURhdmlz/MjAyNC1Db3Jpbm5l/RHVicmV1aWxGRlQu/anBnP2F1dG89Zm9y/bWF0LGNvbXByZXNz/JnJlY3Q9MCwxLDMw/MDAsMTk5NyZ3PTc2/MCZoPTUwNg" class="activity-img" alt="Activity 2">
+                        <img src="https://imgs.search.brave.com/VUmrTIERxq_bL_-3z1HwARSBoazL42vgItWB-tzhfPU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNDg1/MjI2MjkwL2ZyL3Bo/b3RvL21vdG9yLXNw/b3J0cy1kZS1jb3Vy/c2UuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPTVXRFMyVFlY/Q1c4RU9mWDVCSG9x/WGNUNmVJT1cwY0ll/b3hTWTFaQlFGdVE9" class="activity-img" alt="Activity 3">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400" class="activity-img" alt="Activity 4">
+                        <img src="https://imgs.search.brave.com/CcfMh9NdoLzsPqHnYEJ9sTlp_9N82x0R7Fr3HTQTI5c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5mb290LW5hdGlv/bmFsLmNvbS8xOC8y/MDI1LzAzL3Bob3Rv/X2FydGljbGUvOTA3/Njc1LzM2NTQxNy8x/MjAwLUwtcXVpcGUt/ZGUtZnJhbmNlLWxh/LXBob3RvLW9mZmlj/aWVsbGUtZGVzLWJs/ZXVzLWF2YW50LWxh/LWNyb2F0aWUuanBn" class="activity-img" alt="Activity 5">
+                        <img src="https://imgs.search.brave.com/QcTEVj5nEoHpB4UaVIhyC4m-rKaKNlMIh_0FX9CGeDc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMucHJpc21pYy5p/by9mZnQtcmctY29t/bXVuLW5ld3MvWnoz/WnZLOGpRQXJUMUVp/Wl9SYWZhZWxOYWRh/bC1Db3VwZURhdmlz/MjAyNC1Db3Jpbm5l/RHVicmV1aWxGRlQu/anBnP2F1dG89Zm9y/bWF0LGNvbXByZXNz/JnJlY3Q9MCwxLDMw/MDAsMTk5NyZ3PTc2/MCZoPTUwNg" class="activity-img" alt="Activity 1">
+                        <img src="https://imgs.search.brave.com/VUmrTIERxq_bL_-3z1HwARSBoazL42vgItWB-tzhfPU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNDg1/MjI2MjkwL2ZyL3Bo/b3RvL21vdG9yLXNw/b3J0cy1kZS1jb3Vy/c2UuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPTVXRFMyVFlY/Q1c4RU9mWDVCSG9x/WGNUNmVJT1cwY0ll/b3hTWTFaQlFGdVE9" class="activity-img" alt="Activity 2">
+                        <img src="https://imgs.search.brave.com/CcfMh9NdoLzsPqHnYEJ9sTlp_9N82x0R7Fr3HTQTI5c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5mb290LW5hdGlv/bmFsLmNvbS8xOC8y/MDI1LzAzL3Bob3Rv/X2FydGljbGUvOTA3/Njc1LzM2NTQxNy8x/MjAwLUwtcXVpcGUt/ZGUtZnJhbmNlLWxh/LXBob3RvLW9mZmlj/aWVsbGUtZGVzLWJs/ZXVzLWF2YW50LWxh/LWNyb2F0aWUuanBn" class="activity-img" alt="Activity 3">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400" class="activity-img" alt="Activity 4">
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="about">
             <h2 data-key="title-about">À propos</h2>
@@ -503,6 +720,8 @@
                 "subtitle": "Developer & Designer",
                 "nav-projets": "Projets",
                 "nav-exp": "Expérience",
+                "nav-discord": "Discord",
+                "nav-others": "Activités",
                 "nav-about": "À propos",
                 "nav-contact": "Contact",
                 "title-projets": "Projets",
@@ -512,6 +731,10 @@
                 "title-exp": "Expérience",
                 "exp1": "Développeur Polyvalent",
                 "exp2": "Apprenti Développeur",
+                "title-discord": "Profil Discord",
+                "title-others": "Autres Activités",
+                "others-title": "Plus que du code...",
+                "others-text": "En dehors des écrans et des lignes de code, je m'épanouis dans la création graphique, le sport et l'exploration de nouvelles technologies. Je crois que la curiosité est la clé de l'apprentissage, c'est pourquoi je passe mon temps libre à expérimenter des choses variées pour nourrir ma créativité.",
                 "title-about": "À propos",
                 "about-p1": "Actuellement en première année de lycée (Lycée Raymond Queneau), passionné par le développement web et la conception graphique.",
                 "about-p2": "Je suis un développeur et designer minimaliste et polyvalent qui aime créer des outils utiles, esthétiques et intuitifs.",
@@ -522,6 +745,8 @@
                 "subtitle": "Developer & Designer",
                 "nav-projets": "Projects",
                 "nav-exp": "Experience",
+                "nav-discord": "Discord",
+                "nav-others": "Activities",
                 "nav-about": "About",
                 "nav-contact": "Contact",
                 "title-projets": "Projects",
@@ -531,6 +756,10 @@
                 "title-exp": "Experience",
                 "exp1": "Versatile Developer",
                 "exp2": "Apprentice Developer",
+                "title-discord": "Discord Profile",
+                "title-others": "Other Activities",
+                "others-title": "More than just code...",
+                "others-text": "Beyond the screens and lines of code, I thrive in graphic creation, sports, and exploring new technologies. I believe curiosity is the key to learning, which is why I spend my free time experimenting with various things to feed my creativity.",
                 "title-about": "About",
                 "about-p1": "Currently in my first year of high school (Lycée Raymond Queneau), passionate about web development and graphic design.",
                 "about-p2": "I am a minimalist and versatile developer and designer who loves creating useful, aesthetic, and intuitive tools.",
@@ -555,7 +784,6 @@
             updateLanguage();
         });
 
-        // --- GESTION DU THÈME ---
         const themeBtn = document.getElementById('themeBtn');
         const body = document.body;
         const icon = themeBtn.querySelector('i');
@@ -589,9 +817,7 @@
             localStorage.setItem('theme', theme);
         });
 
-        // --- GESTION DE LA POLICE ---
         const fontBtn = document.getElementById('fontBtn');
-        
         function applyFont(font) {
             if (font === 'caveat') {
                 body.classList.add('font-caveat');
