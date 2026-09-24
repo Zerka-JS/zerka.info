@@ -4,293 +4,484 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rnr.t — Portfolio</title>
+    <!-- Importation de la police Caveat -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --gray: #777777;
-            --light-gray: #eeeeee;
-            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            --item-hover: #fafafa;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --accent: #8b5cf6; 
+            --accent-soft: #f5f3ff;
+            --card-bg: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Variables pour le thème sombre */
         .dark-theme {
-            --bg: #121212;
-            --text: #ffffff;
-            --gray: #aaaaaa;
+            --bg: #1a1a1a;
+            --text: #f1f5f9;
+            --gray: #94a3b8;
             --light-gray: #333333;
-            --item-hover: #1e1e1e;
+            --accent: #a78bfa; 
+            --accent-soft: #2d2a35;
+            --card-bg: #252525;
+        }
+
+        /* Classe pour activer la police Caveat */
+        .font-caveat {
+            --main-font: 'Caveat', cursive;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--main-font);
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            padding: 80px 20px;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, font-family 0.3s ease;
         }
 
-        /* Bouton de changement de thème */
-        .theme-toggle {
+        /* --- SIDEBAR GAUCHE FIXE --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-right: 1px solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 100;
+            transition: var(--transition);
+            animation: revealSidebar 1s ease-out;
+        }
+
+        .sidebar-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 30px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: revealImg 1.2s ease-out;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .sidebar .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        /* --- CONTENU À DROITE --- */
+        .main-content {
+            margin-left: 350px;
+            flex: 1;
+            padding: 60px 60px 60px 80px;
+            transition: var(--transition);
+        }
+
+        .controls {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 1000;
-            transition: var(--transition);
-            opacity: 0.7;
-        }
-
-        .theme-toggle:hover { opacity: 1; transform: rotate(15deg); }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        header {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 60px;
-            animation: reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            gap: 10px;
+            z-index: 1000;
         }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
+        .btn-ctrl {
+            background: var(--card-bg);
+            border: 1px solid var(--light-gray);
+            color: var(--text);
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            object-fit: cover;
-            filter: grayscale(1);
-            animation: revealImg 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-weight: bold;
+            font-size: 0.8rem;
         }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--gray);
-            font-weight: 300;
-        }
+        .btn-ctrl:hover { background: var(--accent); color: white; transform: rotate(15deg); }
 
         nav {
-            margin-bottom: 100px;
+            margin-bottom: 60px;
             display: flex;
-            gap: 30px;
-            font-size: 1rem;
-            animation: reveal 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            justify-content: flex-start;
+            gap: 15px;
+            animation: reveal 1.2s ease-out;
         }
 
         nav a {
             text-decoration: none;
             color: var(--text);
-            opacity: 0.4;
+            opacity: 0.6;
+            padding: 8px 20px;
+            border-radius: 30px;
             transition: var(--transition);
+            background: var(--card-bg);
+            border: 1px solid var(--light-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        nav a:hover { opacity: 1; color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
         }
 
-        nav a:hover { opacity: 1; }
-
-        section {
-            margin-bottom: 120px;
-            animation: reveal 1.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
+        section { animation: reveal 1.5s ease-out; margin-bottom: 80px; }
         h2 {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--gray);
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .list { list-style: none; }
-
-        .item {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-weight: 700;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--light-gray);
+            align-items: center;
+            gap: 10px;
+        }
+        h2::after { content: ""; height: 1px; flex-grow: 1; background: var(--light-gray); }
+
+        .card-list { display: grid; gap: 15px; }
+        .item-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
             text-decoration: none;
             color: inherit;
             transition: var(--transition);
+            border: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
+        .item-card:hover { transform: translateX(10px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
-        .item:hover {
-            padding-left: 15px;
-            background-color: var(--item-hover);
-        }
-
-        .item-title {
+        .item-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.2rem;
-            font-weight: 400;
+        }
+        .item-info { flex-grow: 1; }
+        .item-title { display: block; font-weight: 600; font-size: 1.1rem; }
+        .item-meta { font-size: 0.85rem; color: var(--gray); }
+
+        .about-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
-        .item-meta {
-            font-size: 0.9rem;
-            color: var(--gray);
+        .skills-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .skill-badge {
+            position: relative;
+            padding: 6px 14px;
+            background: var(--accent-soft);
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: help;
         }
-
-        .about-content {
-            font-size: 1.1rem;
-            max-width: 600px;
+        .skill-badge:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.1) translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        .skill-tooltip {
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 220px;
+            background: var(--card-bg);
             color: var(--text);
-            opacity: 0.9;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 10;
+            pointer-events: none;
         }
-
-        .about-content p { margin-bottom: 25px; }
+        .skill-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--accent) transparent transparent transparent;
+        }
+        .skill-badge:hover .skill-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
 
         .contact-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
         }
 
         .contact-link {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1.2rem;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--light-gray);
+            border-radius: 16px;
             color: var(--text);
             text-decoration: none;
             transition: var(--transition);
-            width: fit-content;
+            font-weight: 600;
+            font-size: 0.95rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            animation: revealContact 0.6s ease-out backwards;
         }
 
         .contact-link i {
-            width: 25px;
-            text-align: center;
-            font-size: 1.3rem;
+            color: var(--accent);
+            font-size: 1.2rem;
             transition: var(--transition);
         }
 
         .contact-link:hover {
-            color: var(--gray);
-            padding-left: 10px;
+            background: var(--card-bg);
+            color: var(--text);
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
         }
 
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, var(--accent-soft) 0%, transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .contact-link:hover::before { opacity: 1; }
         .contact-link:hover i {
-            transform: scale(1.2) rotate(-5deg);
+            color: var(--accent);
+            transform: scale(1.3) translateY(-2px);
+            animation: bounce 0.5s infinite alternate;
         }
 
-        footer {
-            margin-top: 150px;
-            font-size: 0.9rem;
-            color: var(--gray);
+        @keyframes bounce {
+            from { transform: scale(1.3) translateY(0); }
+            to { transform: scale(1.3) translateY(-3px); }
         }
 
-        @keyframes reveal {
-            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        footer { text-align: center; margin-top: 100px; color: var(--gray); font-size: 0.9rem; padding-bottom: 40px; }
+
+        @keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes revealImg { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes revealSidebar { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes revealContact {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes revealImg {
-            from { opacity: 0; transform: scale(0.9); filter: blur(15px) grayscale(1); }
-            to { opacity: 1; transform: scale(1); filter: blur(0) grayscale(1); }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 2.2rem; }
-            .subtitle { font-size: 1.1rem; }
-            .item { flex-direction: column; gap: 8px; }
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--light-gray);
+                padding: 60px 20px;
+            }
+            .main-content { margin-left: 0; padding: 40px 20px; }
+            .main-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
-    <button class="theme-toggle" id="themeBtn" title="Changer le thème">
-        <i class="fa-solid fa-moon"></i>
-    </button>
+<body class="light-theme">
 
-    <div class="container">
-        <header>
-            <img src="https://i.pinimg.com/736x/c8/79/f7/c879f767591183a76ae8500a390a2d51.jpg" alt="Profil" class="profile-img">
-            <h1><strong>Rnr.t</strong></h1>
-            <p class="subtitle">Developer & Designer</p>
-        </header>
+    <div class="sidebar">
+        <img src="https://i.pinimg.com/736x/c8/79/f7/c879f767591183a76ae8500a390a2d51.jpg" alt="Profil" class="sidebar-img" id="sidebarImg">
+        <h1>Rnr.t</h1>
+        <p class="subtitle" data-key="subtitle">Developer & Designer</p>
+    </div>
+
+    <div class="main-content">
+        <div class="controls">
+            <button class="btn-ctrl" id="langBtn" title="Changer la langue">EN</button>
+            <button class="btn-ctrl" id="fontBtn" title="Changer la police">
+                <i class="fa-solid fa-font"></i>
+            </button>
+            <button class="btn-ctrl" id="themeBtn" title="Changer le thème">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
 
         <nav>
-            <a href="#projets">Projets</a>
-            <a href="#experience">Expérience</a>
-            <a href="#about">À propos</a>
-            <a href="#contact">Contact</a>
+            <a href="#projets" data-key="nav-projets">Projets</a>
+            <a href="#experience" data-key="nav-exp">Expérience</a>
+            <a href="#about" data-key="nav-about">À propos</a>
+            <a href="#contact" data-key="nav-contact">Contact</a>
         </nav>
 
-        <section id="projets">
-            <h2>Projets</h2>
-            <div class="list">
-                <a href="#" class="item">
-                    <span class="item-title">Entrée à Epitech</span>
-                    <span class="item-meta">2024 — Maintenant</span>
-                </a>
-                <a href="#" class="item">
-                    <span class="item-title">Développer une extension linux</span>
-                    <span class="item-meta">2023 — 2024</span>
-                </a>
-                <a href="#" class="item">
-                    <span class="item-title">Première application téléphone</span>
-                    <span class="item-meta">2023</span>
-                </a>
-                <a href="#" class="item">
-                    <span class="item-title">Premiers pas dans le développement</span>
-                    <span class="item-meta">2020 — 2022</span>
-                </a>
+        <div class="main-grid">
+            <div class="left-col">
+                <section id="projets">
+                    <h2 data-key="title-projets">Projets</h2>
+                    <div class="card-list">
+                        <a href="#" class="item-card">
+                            <div class="item-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="item-info">
+                                <span class="item-title" data-key="proj1">Entrée à Epitech</span>
+                                <span class="item-meta">2024 — Présent</span>
+                            </div>
+                        </a>
+                        <a href="#" class="item-card">
+                            <div class="item-icon"><i class="fa-solid fa-terminal"></i></div>
+                            <div class="item-info">
+                                <span class="item-title" data-key="proj2">Extension Linux</span>
+                                <span class="item-meta">2023 — 2024</span>
+                            </div>
+                        </a>
+                        <a href="#" class="item-card">
+                            <div class="item-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                            <div class="item-info">
+                                <span class="item-title" data-key="proj3">Application Mobile</span>
+                                <span class="item-meta">2023</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
             </div>
-        </section>
 
-        <section id="experience">
-            <h2>Expérience</h2>
-            <div class="list">
-                <a href="#" class="item">
-                    <span class="item-title">Développeur Polyvalent</span>
-                    <span class="item-meta">2022 — Maintenant</span>
-                </a>
-                <a href="#" class="item">
-                    <span class="item-title">Apprenti Développeur</span>
-                    <span class="item-meta">2020 — 2022</span>
-                </a>
+            <div class="right-col">
+                <section id="experience">
+                    <h2 data-key="title-exp">Expérience</h2>
+                    <div class="card-list">
+                        <a href="#" class="item-card">
+                            <div class="item-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="item-info">
+                                <span class="item-title" data-key="exp1">Développeur Polyvalent</span>
+                                <span class="item-meta">2022 — Présent</span>
+                            </div>
+                        </a>
+                        <a href="#" class="item-card">
+                            <div class="item-icon"><i class="fa-solid fa-user-gear"></i></div>
+                            <div class="item-info">
+                                <span class="item-title" data-key="exp2">Apprenti Développeur</span>
+                                <span class="item-meta">2020 — 2022</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
 
         <section id="about">
-            <h2>À propos</h2>
-            <div class="about-content">
-                <p>Actuellement en première année de lycée (Lycée Raymond Queneau), passionné par le développement web et la conception graphique.</p>
-                <p>Je suis un développeur et designer simpliste et polyvalent qui n'aime pas se prendre la tête mais qui aime créer des choses utiles et jolies.</p>
+            <h2 data-key="title-about">À propos</h2>
+            <div class="about-box">
+                <p data-key="about-p1">Actuellement en première année de lycée (Lycée Raymond Queneau), passionné par le développement web et la conception graphique.</p>
+                <br>
+                <p data-key="about-p2">Je suis un développeur et designer minimaliste et polyvalent qui aime créer des outils utiles, esthétiques et intuitifs.</p>
+                
+                <div class="skills-container">
+                    <div class="skill-badge">
+                        HTML/CSS
+                        <span class="skill-tooltip">Structure et style des pages web. Indispensable pour créer l'interface visuelle.</span>
+                    </div>
+                    <div class="skill-badge">
+                        JavaScript
+                        <span class="skill-tooltip">Langage de programmation web. Permet de rendre un site interactif et dynamique.</span>
+                    </div>
+                    <div class="skill-badge">
+                        Linux
+                        <span class="skill-tooltip">Système d'exploitation open-source. Idéal pour le développement et la gestion de serveurs.</span>
+                    </div>
+                    <div class="skill-badge">
+                        UI/UX Design
+                        <span class="skill-tooltip">Conception de l'interface et de l'expérience utilisateur pour rendre un produit intuitif.</span>
+                    </div>
+                    <div class="skill-badge">
+                        Git
+                        <span class="skill-tooltip">Système de contrôle de version. Permet de sauvegarder et collaborer sur du code.</span>
+                    </div>
+                    <div class="skill-badge">
+                        Python
+                        <span class="skill-tooltip">Langage polyvalent. Utilisé pour l'IA, l'automatisation et le backend.</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="contact">
-            <h2>Contact</h2>
+            <h2 data-key="title-contact">Contact</h2>
             <div class="contact-grid">
-                <a href="mailto:rnr.t76@proton.me" class="contact-link">
-                    <i class="fa-solid fa-envelope"></i> Email
+                <a href="mailto:rnr.t76@proton.me" class="contact-link" style="animation-delay: 0.1s">
+                    <i class="fa-solid fa-envelope"></i> <span data-key="contact-email">Email</span>
                 </a>
-                <a href="https://github.com/Zerka-JS" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <a href="https://github.com/Zerka-JS" target="_blank" class="contact-link" style="animation-delay: 0.2s">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
-                <a href="https://tiktok.com/@rnr.t3" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <a href="https://tiktok.com/@rnr.t3" target="_blank" class="contact-link" style="animation-delay: 0.3s">
                     <i class="fa-brands fa-tiktok"></i> TikTok
                 </a>
-                <a href="https://instagram.com/rnr.tino" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <a href="https://instagram.com/rnr.tino" target="_blank" class="contact-link" style="animation-delay: 0.4s">
                     <i class="fa-brands fa-instagram"></i> Instagram
                 </a>
-                <a href="https://discord.gg/1172884591401508875" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <a href="https://discord.gg/1172884591401508875" target="_blank" class="contact-link" style="animation-delay: 0.5s">
                     <i class="fa-brands fa-discord"></i> Discord
                 </a>
             </div>
@@ -302,28 +493,122 @@
     </div>
 
     <script>
+        const IMAGES = {
+            light: "https://i.pinimg.com/1200x/fc/97/3f/fc973f14e3008f8ffc60cb4f693e878c.jpg", 
+            dark: "https://i.pinimg.com/736x/6d/8d/a2/6d8da2d5156219945fe38cd24600b9bc.jpg" 
+        };
+
+        const translations = {
+            fr: {
+                "subtitle": "Developer & Designer",
+                "nav-projets": "Projets",
+                "nav-exp": "Expérience",
+                "nav-about": "À propos",
+                "nav-contact": "Contact",
+                "title-projets": "Projets",
+                "proj1": "Entrée à Epitech",
+                "proj2": "Extension Linux",
+                "proj3": "Application Mobile",
+                "title-exp": "Expérience",
+                "exp1": "Développeur Polyvalent",
+                "exp2": "Apprenti Développeur",
+                "title-about": "À propos",
+                "about-p1": "Actuellement en première année de lycée (Lycée Raymond Queneau), passionné par le développement web et la conception graphique.",
+                "about-p2": "Je suis un développeur et designer minimaliste et polyvalent qui aime créer des outils utiles, esthétiques et intuitifs.",
+                "title-contact": "Contact",
+                "contact-email": "Email"
+            },
+            en: {
+                "subtitle": "Developer & Designer",
+                "nav-projets": "Projects",
+                "nav-exp": "Experience",
+                "nav-about": "About",
+                "nav-contact": "Contact",
+                "title-projets": "Projects",
+                "proj1": "Entry to Epitech",
+                "proj2": "Linux Extension",
+                "proj3": "Mobile Application",
+                "title-exp": "Experience",
+                "exp1": "Versatile Developer",
+                "exp2": "Apprentice Developer",
+                "title-about": "About",
+                "about-p1": "Currently in my first year of high school (Lycée Raymond Queneau), passionate about web development and graphic design.",
+                "about-p2": "I am a minimalist and versatile developer and designer who loves creating useful, aesthetic, and intuitive tools.",
+                "title-contact": "Contact",
+                "contact-email": "Email"
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'fr';
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                el.textContent = translations[currentLang][key];
+            });
+            document.getElementById('langBtn').textContent = currentLang === 'fr' ? 'EN' : 'FR';
+            localStorage.setItem('lang', currentLang);
+        }
+
+        document.getElementById('langBtn').addEventListener('click', () => {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            updateLanguage();
+        });
+
+        // --- GESTION DU THÈME ---
         const themeBtn = document.getElementById('themeBtn');
         const body = document.body;
         const icon = themeBtn.querySelector('i');
+        const sidebarImg = document.getElementById('sidebarImg');
 
-        // Charger le thème sauvegardé
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-theme');
-            icon.classList.replace('fa-moon', 'fa-sun');
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                sidebarImg.src = IMAGES.dark;
+            } else {
+                body.classList.remove('dark-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                sidebarImg.src = IMAGES.light;
+            }
         }
 
+        const savedTheme = localStorage.getItem('theme');
+        applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+
         themeBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            
-            if (body.classList.contains('dark-theme')) {
+            const isDark = body.classList.toggle('dark-theme');
+            const theme = isDark ? 'dark' : 'light';
+            if (isDark) {
                 icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
+                sidebarImg.src = IMAGES.dark;
             } else {
                 icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
+                sidebarImg.src = IMAGES.light;
             }
+            localStorage.setItem('theme', theme);
         });
+
+        // --- GESTION DE LA POLICE ---
+        const fontBtn = document.getElementById('fontBtn');
+        
+        function applyFont(font) {
+            if (font === 'caveat') {
+                body.classList.add('font-caveat');
+            } else {
+                body.classList.remove('font-caveat');
+            }
+        }
+
+        const savedFont = localStorage.getItem('font');
+        applyFont(savedFont);
+
+        fontBtn.addEventListener('click', () => {
+            const isCaveat = body.classList.toggle('font-caveat');
+            localStorage.setItem('font', isCaveat ? 'caveat' : 'system');
+        });
+
+        updateLanguage();
     </script>
 </body>
 </html>
