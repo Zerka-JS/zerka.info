@@ -14,6 +14,8 @@
             --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --discord-blurple: #5865F2;
+            --status-green: #22c55e;
+            --status-orange: #f97316;
         }
         .dark-theme {
             --bg: #1a1a1a; --text: #f1f5f9; --gray: #94a3b8; --light-gray: #333333;
@@ -85,6 +87,26 @@
         .item-info { flex-grow: 1; }
         .item-title { display: block; font-weight: 600; font-size: 1.1rem; }
         .item-meta { font-size: 0.85rem; color: var(--gray); }
+
+        /* --- UPDATED BADGES WITH STATUS BUTTONS --- */
+        .badge-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .tech-item {
+            background: var(--card-bg); border: 1px solid var(--light-gray);
+            padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; 
+            gap: 10px; transition: var(--transition); color: var(--text); font-weight: 500;
+        }
+        .tech-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .tech-item i { color: var(--accent); }
+        
+        .status-btn {
+            font-size: 0.7rem; padding: 3px 8px; border-radius: 20px; 
+            color: white; font-weight: 700; text-transform: uppercase;
+            border: none; cursor: default;
+        }
+        .btn-full { background-color: var(--status-green); }
+        .btn-partial { background-color: var(--status-orange); }
+        .btn-used { background-color: var(--status-green); }
+
         .discord-card-wrapper { display: flex; justify-content: center; width: 100%; }
         .discord-card {
             background: var(--card-bg); width: 100%; max-width: 380px; border-radius: 24px;
@@ -105,34 +127,18 @@
             border-radius: 12px; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px;
         }
         .discord-action-btn:hover { background: #4752C4; transform: scale(1.03); }
-
         .activities-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
         .activities-text { font-size: 1.1rem; color: var(--gray); }
         .activities-text strong { color: var(--text); font-size: 1.3rem; display: block; margin-bottom: 15px; }
         .activities-slider { 
-            overflow: hidden; 
-            width: 540px;
-            position: relative; 
-            padding: 20px 0; 
+            overflow: hidden; width: 540px; position: relative; padding: 20px 0; 
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); 
             -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
-        .image-track { 
-            display: flex; 
-            width: calc(280px * 8);
-            animation: scrollInfinite 20s linear infinite; 
-        }
-        .activity-img { 
-            width: 250px; height: 180px; border-radius: 20px; object-fit: cover; 
-            margin: 0 15px; border: 2px solid var(--light-gray); transition: var(--transition); 
-        }
+        .image-track { display: flex; width: calc(280px * 8); animation: scrollInfinite 20s linear infinite; }
+        .activity-img { width: 250px; height: 180px; border-radius: 20px; object-fit: cover; margin: 0 15px; border: 2px solid var(--light-gray); transition: var(--transition); }
         .activity-img:hover { transform: scale(1.05); border-color: var(--accent); }
-        
-        @keyframes scrollInfinite { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(calc(-280px * 4)); }
-        }
-
+        @keyframes scrollInfinite { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-280px * 4)); } }
         .about-box { background: var(--card-bg); padding: 30px; border-radius: 24px; border: 1px solid var(--light-gray); }
         .skills-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
         .skill-badge {
@@ -203,6 +209,8 @@
         <nav>
             <a href="#projets" data-key="nav-projets">Projets</a>
             <a href="#apps" data-key="nav-apps">Mes Apps</a>
+            <a href="#languages" data-key="nav-langs">Langages</a>
+            <a href="#ai" data-key="nav-ai">IA</a>
             <a href="#experience" data-key="nav-exp">Expérience</a>
             <a href="#discord" data-key="nav-discord">Discord</a>
             <a href="#others" data-key="nav-others">Activités</a>
@@ -231,6 +239,7 @@
                         </a>
                     </div>
                 </section>
+
                 <section id="apps">
                     <h2 data-key="title-apps">Mes Apps</h2>
                     <div class="card-list">
@@ -250,7 +259,30 @@
                         </a>
                     </div>
                 </section>
+
+                <section id="languages">
+                    <h2 data-key="title-langs">Langages de Code</h2>
+                    <div class="badge-grid">
+                        <div class="tech-item"><i class="fa-brands fa-python"></i> Python <span class="status-btn btn-full">Maîtrisé</span></div>
+                        <div class="tech-item"><i class="fa-brands fa-js"></i> JavaScript <span class="status-btn btn-partial">Partiel</span></div>
+                        <div class="tech-item"><i class="fa-brands fa-html5"></i> HTML <span class="status-btn btn-full">Maîtrisé</span></div>
+                        <div class="tech-item"><i class="fa-brands fa-css3-alt"></i> CSS <span class="status-btn btn-full">Maîtrisé</span></div>
+                        <div class="tech-item"><i class="fa-solid fa-code"></i> C / C++ <span class="status-btn btn-partial">Partiel</span></div>
+                        <div class="tech-item"><i class="fa-brands fa-git-alt"></i> Git / Bash <span class="status-btn btn-full">Maîtrisé</span></div>
+                    </div>
+                </section>
+
+                <section id="ai">
+                    <h2 data-key="title-ai">IA Utilisées</h2>
+                    <div class="badge-grid">
+                        <div class="tech-item"><i class="fa-solid fa-robot"></i> Gemini <span class="status-btn btn-used">Utilisé</span></div>
+                        <div class="tech-item"><i class="fa-solid fa-brain"></i> Claude AI <span class="status-btn btn-used">Utilisé</span></div>
+                        <div class="tech-item"><i class="fa-solid fa-bolt"></i> OpenCode <span class="status-btn btn-used">Utilisé</span></div>
+                        <div class="tech-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Qwencode <span class="status-btn btn-used">Utilisé</span></div>
+                    </div>
+                </section>
             </div>
+
             <div class="right-col">
                 <section id="experience">
                     <h2 data-key="title-exp">Expérience</h2>
@@ -361,18 +393,18 @@
         const IMAGES = { light: "https://i.pinimg.com/736x/72/c9/62/72c962524ba4bb2dc7f9db526830335a.jpg", dark: "https://i.pinimg.com/736x/72/c9/62/72c962524ba4bb2dc7f9db526830335a.jpg" };
         const translations = {
             fr: {
-                "subtitle": "Developer & Designer", "nav-projets": "Projets", "nav-apps": "Mes Apps", "nav-exp": "Expérience", "nav-discord": "Discord", "nav-others": "Activités", "nav-about": "À propos", "nav-contact": "Contact",
-                "title-projets": "Projets", "title-apps": "Mes Apps", "proj1": "Entrée à Epitech", "proj2": "Extension Linux", "title-exp": "Expérience", "exp1": "Développeur Polyvalent", "exp2": "Apprenti Développeur",
+                "subtitle": "Developer & Designer", "nav-projets": "Projets", "nav-apps": "Mes Apps", "nav-langs": "Langages", "nav-ai": "IA", "nav-exp": "Expérience", "nav-discord": "Discord", "nav-others": "Activités", "nav-about": "À propos", "nav-contact": "Contact",
+                "title-projets": "Projets", "title-apps": "Mes Apps", "title-langs": "Langages de Code", "title-ai": "IA Utilisées", "proj1": "Entrée à Epitech", "proj2": "Extension Linux", "title-exp": "Expérience", "exp1": "Développeur Polyvalent", "exp2": "Apprenti Développeur",
                 "title-discord": "Profil Discord", "title-others": "Autres Activités", "others-title": "Plus que du code...", "others-text": "En dehors des écrans et des lignes de code, je m'épanouis dans la création graphique, le sport et l'exploration de nouvelles technologies.",
                 "title-about": "À propos", "about-p1": "Actuellement en première année de lycée (Lycée Raymond Queneau), passionné par le développement web et la conception graphique.", "about-p2": "Je suis un développeur et designer minimaliste et polyvalent qui aime créer des outils utiles, esthétiques et intuitifs.",
-                "title-contact": "Contact", "contact-email": "Email"
+                "title-contact": "Contact", "contact-email": "Email", "app1": "Télégram Searcher", "app1-meta": "Python / Automatisation", "app2": "Bot Protect discord", "app2-meta": "JS / Discord"
             },
             en: {
-                "subtitle": "Developer & Designer", "nav-projets": "Projects", "nav-apps": "My Apps", "nav-exp": "Experience", "nav-discord": "Discord", "nav-others": "Activities", "nav-about": "About", "nav-contact": "Contact",
-                "title-projets": "Projects", "title-apps": "My Apps", "proj1": "Entry to Epitech", "proj2": "Linux Extension", "title-exp": "Experience", "exp1": "Versatile Developer", "exp2": "Apprentice Developer",
+                "subtitle": "Developer & Designer", "nav-projets": "Projects", "nav-apps": "My Apps", "nav-langs": "Languages", "nav-ai": "AI", "nav-exp": "Experience", "nav-discord": "Discord", "nav-others": "Activities", "nav-about": "About", "nav-contact": "Contact",
+                "title-projets": "Projects", "title-apps": "My Apps", "title-langs": "Coding Languages", "title-ai": "AI Tools Used", "proj1": "Entry to Epitech", "proj2": "Linux Extension", "title-exp": "Experience", "exp1": "Versatile Developer", "exp2": "Apprentice Developer",
                 "title-discord": "Discord Profile", "title-others": "Other Activities", "others-title": "More than just code...", "others-text": "Beyond the screens and lines of code, I thrive in graphic creation, sports, and exploring new technologies.",
                 "title-about": "About", "about-p1": "Currently in my first year of high school (Lycée Raymond Queneau), passionate about web development and graphic design.", "about-p2": "I am a minimalist and versatile developer and designer who loves creating useful, aesthetic, and intuitive tools.",
-                "title-contact": "Contact", "contact-email": "Email"
+                "title-contact": "Contact", "contact-email": "Email", "app1": "Telegram Searcher", "app1-meta": "Python / Automation", "app2": "Discord Protect Bot", "app2-meta": "JS / Discord"
             }
         };
         let currentLang = localStorage.getItem('lang') || 'fr';
